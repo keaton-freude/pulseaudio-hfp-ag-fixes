@@ -751,20 +751,21 @@ static int transport_acquire(struct userdata *u, bool optional) {
     return 0;
 }
 
-static void transport_release(struct userdata *u) {
+static void transport_release(struct userdata *u, bool optional) {
+    bool ret;
+
     pa_assert(u->transport);
 
     /* Ignore if already released */
     if (!u->transport_acquired)
         return;
 
-    pa_log_debug("Releasing transport %s", u->transport->path);
-
-    u->transport->release(u->transport);
-
-    u->transport_acquired = false;
-
-    teardown_stream(u);
+    ret = u->transport->release(u->transport, optional);
+    if (ret || !optional) {
+        pa_log_debug("Releasing transport %s", u->transport->path);
+        u->transport_acquired = false;
+        teardown_stream(u);
+    }
 }
 
 /* Run from I/O thread */
@@ -852,7 +853,7 @@ static int source_process_msg(pa_msgobject *o, int code, void *data, int64_t off
 
                     /* Stop the device if the sink is suspended as well */
                     if (!u->sink || u->sink->state == PA_SINK_SUSPENDED)
-                        transport_release(u);
+                        transport_release(u, true);
 
                     if (u->read_smoother)
                         pa_smoother_pause(u->read_smoother, pa_rtclock_now());
@@ -1019,7 +1020,7 @@ static int sink_process_msg(pa_msgobject *o, int code, void *data, int64_t offse
                         /* We deliberately ignore whether stopping
                          * actually worked. Since the stream_fd is
                          * closed it doesn't really matter */
-                        transport_release(u);
+                        transport_release(u, true);
 
                     break;
 
@@ -1516,7 +1517,7 @@ static void thread_func(void *userdata) {
         }
         if (ret == 0) {
             pa_log_debug("IO thread shutdown requested, stopping cleanly");
-            transport_release(u);
+            transport_release(u, false);
             goto finish;
         }
     }
@@ -1599,7 +1600,7 @@ static void stop_thread(struct userdata *u) {
     }
 
     if (u->transport) {
-        transport_release(u);
+        transport_release(u, false);
         u->transport = NULL;
     }
 

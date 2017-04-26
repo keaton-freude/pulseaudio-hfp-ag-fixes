@@ -196,20 +196,28 @@ static int hf_audio_agent_transport_acquire(pa_bluetooth_transport *t, bool opti
     return card->fd;
 }
 
-static void hf_audio_agent_transport_release(pa_bluetooth_transport *t) {
+static bool hf_audio_agent_transport_release(pa_bluetooth_transport *t, bool optional) {
     struct hf_audio_card *card = t->userdata;
 
     pa_assert(card);
 
+    /* Don't release the fd since this is just to suspend the stream */
+    if (optional)
+	    return false;
+
     if (card->fd < 0) {
         pa_log_info("Transport %s already released", t->path);
-        return;
+        return true;
     }
 
     /* shutdown to make sure connection is dropped immediately */
     shutdown(card->fd, SHUT_RDWR);
     close(card->fd);
     card->fd = -1;
+
+    pa_log_info("Transport %s released", t->path);
+
+    return true;
 }
 
 static void hf_audio_agent_card_found(pa_bluetooth_backend *backend, const char *path, DBusMessageIter *props_i) {

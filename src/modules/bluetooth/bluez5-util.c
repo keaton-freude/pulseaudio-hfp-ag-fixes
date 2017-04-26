@@ -392,7 +392,7 @@ finish:
     return ret;
 }
 
-static void bluez5_transport_release_cb(pa_bluetooth_transport *t) {
+static bool bluez5_transport_release_cb(pa_bluetooth_transport *t, bool suspend) {
     DBusMessage *m;
     DBusError err;
 
@@ -404,7 +404,7 @@ static void bluez5_transport_release_cb(pa_bluetooth_transport *t) {
 
     if (t->state <= PA_BLUETOOTH_TRANSPORT_STATE_IDLE) {
         pa_log_info("Transport %s auto-released by BlueZ or already released", t->path);
-        return;
+        return true;
     }
 
     pa_assert_se(m = dbus_message_new_method_call(t->owner, t->path, BLUEZ_MEDIA_TRANSPORT_INTERFACE, "Release"));
@@ -413,8 +413,11 @@ static void bluez5_transport_release_cb(pa_bluetooth_transport *t) {
     if (dbus_error_is_set(&err)) {
         pa_log_error("Failed to release transport %s: %s", t->path, err.message);
         dbus_error_free(&err);
-    } else
+        return false;
+    } else {
         pa_log_info("Transport %s released", t->path);
+        return true;
+    }
 }
 
 bool pa_bluetooth_device_any_transport_connected(const pa_bluetooth_device *d) {

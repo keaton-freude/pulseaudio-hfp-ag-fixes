@@ -217,9 +217,10 @@ fail:
     return -1;
 }
 
-static void sco_release_cb(pa_bluetooth_transport *t) {
+static bool sco_release_cb(pa_bluetooth_transport *t, bool optional) {
     pa_log_info("Transport %s released", t->path);
     /* device will close the SCO socket for us */
+    return true;
 }
 
 static void sco_io_callback(pa_mainloop_api *io, pa_io_event *e, int fd, pa_io_event_flags_t events, void *userdata) {
