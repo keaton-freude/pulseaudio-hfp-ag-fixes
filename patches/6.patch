@@ -1,0 +1,108 @@
+Delivered-To: nsathish41@gmail.com
+Received: by 10.100.186.199 with SMTP id b65csp274463pjc;
+        Wed, 26 Apr 2017 05:20:16 -0700 (PDT)
+X-Received: by 10.84.232.13 with SMTP id h13mr43529005plk.42.1493209216127;
+        Wed, 26 Apr 2017 05:20:16 -0700 (PDT)
+Return-Path: <pulseaudio-discuss-bounces@lists.freedesktop.org>
+Received: from gabe.freedesktop.org (gabe.freedesktop.org. [131.252.210.177])
+        by mx.google.com with ESMTPS id p84si13932409pfj.171.2017.04.26.05.20.15
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 26 Apr 2017 05:20:16 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of pulseaudio-discuss-bounces@lists.freedesktop.org designates 131.252.210.177 as permitted sender) client-ip=131.252.210.177;
+Authentication-Results: mx.google.com;
+       dkim=neutral (body hash did not verify) header.i=@gmail.com;
+       spf=pass (google.com: best guess record for domain of pulseaudio-discuss-bounces@lists.freedesktop.org designates 131.252.210.177 as permitted sender) smtp.mailfrom=pulseaudio-discuss-bounces@lists.freedesktop.org;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=gmail.com
+Received: from gabe.freedesktop.org (localhost [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2BF16E412;
+	Wed, 26 Apr 2017 12:20:13 +0000 (UTC)
+X-Original-To: pulseaudio-discuss@lists.freedesktop.org
+Delivered-To: pulseaudio-discuss@lists.freedesktop.org
+Received: from mail-lf0-x242.google.com (mail-lf0-x242.google.com
+ [IPv6:2a00:1450:4010:c07::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0CC06E40F
+ for <pulseaudio-discuss@lists.freedesktop.org>;
+ Wed, 26 Apr 2017 12:20:11 +0000 (UTC)
+Received: by mail-lf0-x242.google.com with SMTP id x72so24701475lfb.1
+ for <pulseaudio-discuss@lists.freedesktop.org>;
+ Wed, 26 Apr 2017 05:20:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:subject:date:message-id:in-reply-to:references;
+ bh=sWtOb9GL7DFvCxmhDAjw1xrR08f10P+UFTmr9ppZWCI=;
+ b=Nq0YIr1+pjAGQiwRIF/UMkT5DGAxBcpsihY2WDeG8qjakg+9AmfHdFUKXM+lY/aHBw
+ e6uVQHq5j/5AxmMbmxHGFI3VhA++4USjdxnEGPK0x79UPTJ2QBBfpXrLYz87mRuLcec3
+ tRVh1jgJe9BAx1dOjs4WuQSZg45zsAe/Z5wL6Bcp8EUgJ5XZXZhcy7MTF0kBIMTwQaG9
+ /y2Hxl5kXuWX0hGMSE6ak5xj9oDszwf5qhWDGTREKVoAxX+nuDSDN8IXiEcGLnFed9J+
+ XyplqI9RYplYIIEvvv5DJAlfgEoor8jtrKkbndfju2gt6Tz2pRxMEFcc/Q8VQgTh5VaJ
+ bwbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references;
+ bh=sWtOb9GL7DFvCxmhDAjw1xrR08f10P+UFTmr9ppZWCI=;
+ b=Xabohq+Q/3XoXwrJkSSmExWbzCZcOJWdDgChWPKz1GoJrL4iuman/QBgJwIoRJLsWE
+ OaNlQ5MiE94Ca9+B8EOMn+JOUxSyqf6be2uG31CdXkB4FgOiAv8eIFacediOpXp68con
+ rz7OQyBotPm8S6F8c8xfPEseO2s9O7Aw8AwmGp3AGo9XI/nIWLkqyGf5oFdmKBYJiLdE
+ mU6ObX37n9/wHLzzI5S8nQDgQiTb9xRsXOvZK1yFHkkaGnzgmWQkj21Bn7ObITeU8bOq
+ 78Z59P6tKsz3D1gvcBElCnX05YvJVFCMQDMt/T3dskKjAPTaOnCfAkGZPvCfHWjpg7F0
+ kEmw==
+X-Gm-Message-State: AN3rC/4HJrK5SIGxHzWiOrWIFLmna26Az87qAZ5lwYiuskABVyQgXRfc
+ jLOUmGF/CQxVfHAkAxM=
+X-Received: by 10.46.84.90 with SMTP id y26mr13143471ljd.20.1493209209862;
+ Wed, 26 Apr 2017 05:20:09 -0700 (PDT)
+Received: from localhost.localdomain (85-76-102-194-nat.elisa-mobile.fi.
+ [85.76.102.194])
+ by smtp.gmail.com with ESMTPSA id c5sm499488lfk.51.2017.04.26.05.20.08
+ for <pulseaudio-discuss@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 26 Apr 2017 05:20:09 -0700 (PDT)
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+To: pulseaudio-discuss@lists.freedesktop.org
+Date: Wed, 26 Apr 2017 15:19:58 +0300
+Message-Id: <20170426122000.3220-6-luiz.dentz@gmail.com>
+X-Mailer: git-send-email 2.9.3
+In-Reply-To: <20170426122000.3220-1-luiz.dentz@gmail.com>
+References: <20170426122000.3220-1-luiz.dentz@gmail.com>
+Subject: [pulseaudio-discuss] [PATCH v4 6/8] bluetooth: ofono: Close fd if
+	cannot be accepted
+X-BeenThere: pulseaudio-discuss@lists.freedesktop.org
+X-Mailman-Version: 2.1.18
+Precedence: list
+List-Id: General PulseAudio Discussion
+ <pulseaudio-discuss.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/pulseaudio-discuss>, 
+ <mailto:pulseaudio-discuss-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/pulseaudio-discuss>
+List-Post: <mailto:pulseaudio-discuss@lists.freedesktop.org>
+List-Help: <mailto:pulseaudio-discuss-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/pulseaudio-discuss>, 
+ <mailto:pulseaudio-discuss-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: General PulseAudio Discussion
+ <pulseaudio-discuss@lists.freedesktop.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Errors-To: pulseaudio-discuss-bounces@lists.freedesktop.org
+Sender: "pulseaudio-discuss" <pulseaudio-discuss-bounces@lists.freedesktop.org>
+
+RnJvbTogTHVpeiBBdWd1c3RvIHZvbiBEZW50eiA8bHVpei52b24uZGVudHpAaW50ZWwuY29tPgoK
+QWx3YXlzIGNsb3NlIGZkIHRoYXQgY2Fubm90IGJlIGFjY2VwdGVkIG90aGVyd2lzZSBpdCB3aWxs
+IGJlIGxlZnQgb3Blbgp3aXRob3V0IGJlaW5nIGF0dGFjaGVkIHRvIGFueSB0cmFuc3BvcnQuCi0t
+LQogc3JjL21vZHVsZXMvYmx1ZXRvb3RoL2JhY2tlbmQtb2Zvbm8uYyB8IDIgKysKIDEgZmlsZSBj
+aGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9zcmMvbW9kdWxlcy9ibHVldG9v
+dGgvYmFja2VuZC1vZm9uby5jIGIvc3JjL21vZHVsZXMvYmx1ZXRvb3RoL2JhY2tlbmQtb2Zvbm8u
+YwppbmRleCBhODQ3YWQwLi41ZWY3ZTRmIDEwMDY0NAotLS0gYS9zcmMvbW9kdWxlcy9ibHVldG9v
+dGgvYmFja2VuZC1vZm9uby5jCisrKyBiL3NyYy9tb2R1bGVzL2JsdWV0b290aC9iYWNrZW5kLW9m
+b25vLmMKQEAgLTU1MSw2ICs1NTEsOCBAQCBzdGF0aWMgREJ1c01lc3NhZ2UgKmhmX2F1ZGlvX2Fn
+ZW50X25ld19jb25uZWN0aW9uKERCdXNDb25uZWN0aW9uICpjLCBEQnVzTWVzc2FnZQogICAgIGlm
+ICghY2FyZCB8fCBjb2RlYyAhPSBIRlBfQVVESU9fQ09ERUNfQ1ZTRCB8fCBjYXJkLT50cmFuc3Bv
+cnQtPnN0YXRlID09IFBBX0JMVUVUT09USF9UUkFOU1BPUlRfU1RBVEVfUExBWUlORykgewogICAg
+ICAgICBwYV9sb2dfd2FybigiTmV3IGF1ZGlvIGNvbm5lY3Rpb24gaW52YWxpZCBhcmd1bWVudHMg
+KHBhdGg9JXMgZmQ9JWQsIGNvZGVjPSVkKSIsIHBhdGgsIGZkLCBjb2RlYyk7CiAgICAgICAgIHBh
+X2Fzc2VydF9zZShyID0gZGJ1c19tZXNzYWdlX25ld19lcnJvcihtLCAib3JnLm9mb25vLkVycm9y
+LkludmFsaWRBcmd1bWVudHMiLCAiSW52YWxpZCBhcmd1bWVudHMgaW4gbWV0aG9kIGNhbGwiKSk7
+CisgICAgICAgIHNodXRkb3duKGZkLCBTSFVUX1JEV1IpOworICAgICAgICBjbG9zZShmZCk7CiAg
+ICAgICAgIHJldHVybiByOwogICAgIH0KIAotLSAKMi45LjMKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCnB1bHNlYXVkaW8tZGlzY3VzcyBtYWlsaW5nIGxp
+c3QKcHVsc2VhdWRpby1kaXNjdXNzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL3B1bHNlYXVkaW8tZGlzY3Vzcwo=
